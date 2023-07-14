@@ -13,10 +13,21 @@ if ($challenge == 1) {
     if ($case == 'balance') {
         if ($act == 'view')
             include 'views/BalanceView.php';
-        if ($act == 'deposit')
+        else if ($act == 'deposit')
             include 'views/BalanceDeposit.php';
-        if ($act == 'withdraw')
+        else if ($act == 'withdraw')
             include 'views/BalanceWithdraw.php';
     }
 }
-
+if ($challenge == 2) {
+    if ($case == 'balance') {
+        if ($act == 'view') {
+            include 'views/BalanceView.php';
+            include 'views/BalanceHistory.php';
+        }
+        else if ($act == 'deposit')
+            include 'views/BalanceDeposit.php';
+        else if ($act == 'withdraw')
+            include 'views/BalanceWithdraw.php';
+    }
+}

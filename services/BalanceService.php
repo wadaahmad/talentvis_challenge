@@ -24,7 +24,8 @@ class BalanceService
         $sizeData = sizeof($data);
         return $data[$sizeData - 1];
     }
-    public function getLatesBalance(){
+    public function getLatesBalance()
+    {
         $latestBalance = $this->getLatestData();
         return  $latestBalance ? $latestBalance->balance : 0;
     }
@@ -41,6 +42,8 @@ class BalanceService
     {
         if (!$dto->id)
             $dto->id =  $this->getLatestData()->id + 1;
+        if (!$dto->datetime)
+            $dto->datetime = date("Y-m-d H:i");
         $dto = $this->calculateBalance($dto);
         array_push($this->storage, $dto);
         return $this;

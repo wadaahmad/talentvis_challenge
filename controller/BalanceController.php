@@ -38,4 +38,8 @@ class BalanceController
         $save->commit();
         return Responder::response(200,$save->getLatestData());
     }
+    public function getHistory()
+    {
+        return Responder::response(200,$this->service->get());
+    }
 }
