@@ -14,24 +14,29 @@ class BalanceService
             $_SESSION[self::session_key] = array();
         $this->storage = $_SESSION[self::session_key];
     }
-    public function get()
+    public function get($userId = null)
     {
-        return $_SESSION[self::session_key];
+        return array_values(array_filter($_SESSION[self::session_key], function ($data) use ($userId) {
+            if ($userId)
+                return ($data->userId == $userId);
+            else
+                return (!$data->userId);
+        }));
     }
-    public function getLatestData(): ?BalanceDto
+    public function getLatestData($userId = null): ?BalanceDto
     {
-        $data = $this->get();
+        $data = $this->get($userId);
         $sizeData = sizeof($data);
         return $data[$sizeData - 1];
     }
-    public function getLatesBalance()
+    public function getLatesBalance($userId = null)
     {
-        $latestBalance = $this->getLatestData();
+        $latestBalance = $this->getLatestData($userId);
         return  $latestBalance ? $latestBalance->balance : 0;
     }
     public function calculateBalance(BalanceDto $dto)
     {
-        $balance = $this->getLatesBalance();
+        $balance = $this->getLatesBalance($dto->userId);
         if ($dto->type == 'Deposit')
             $dto->balance = $balance + $dto->debit;
         if ($dto->type == 'Withdraw')

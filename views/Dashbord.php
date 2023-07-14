@@ -1,3 +1,10 @@
+<?php
+
+use services\UserService;
+
+// Auto logout when go to dashboard
+UserService::logout();
+?>
 <html>
 
 <head>

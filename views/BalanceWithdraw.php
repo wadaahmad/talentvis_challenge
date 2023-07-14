@@ -2,14 +2,15 @@
 
 use controller\BalanceController;
 use helper\RouterHelper;
+use services\UserService;
 
 $controller = new BalanceController;
-$balance = $controller->getBalance();
+$balance = $controller->getBalance(UserService::authUserId());
 $challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
 $error = isset($_GET['err']) ? $_GET['err'] : '';
 
 if ($_POST['credit']) {
-    $execute = $controller->withdraw($_POST['credit']);
+    $execute = $controller->withdraw($_POST['credit'], UserService::authUserId());
     if ($execute->code == 400) {
         RouterHelper::redirect("?challenge=$challenge&case=balance&act=withdraw&err=$execute->data");
     }

@@ -2,13 +2,14 @@
 
 use controller\BalanceController;
 use helper\RouterHelper;
+use services\UserService;
 
 $controller = new BalanceController;
-$balance = $controller->getBalance();
+$balance = $controller->getBalance(UserService::authUserId());
 $challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
 
 if ($_POST['debit']) {
-    $controller->deposit($_POST['debit']);
+    $controller->deposit($_POST['debit'], UserService::authUserId());
     RouterHelper::redirect("?challenge=$challenge&case=balance&act=view");
 }
 

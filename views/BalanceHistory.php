@@ -1,10 +1,10 @@
 <?php
 
 use controller\BalanceController;
-use helper\RouterHelper;
+use services\UserService;
 
 $controller = new BalanceController;
-$balances = $controller->getHistory();
+$balances = $controller->getHistory(UserService::authUserId());
 $challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
 
 ?>

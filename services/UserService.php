@@ -75,6 +75,10 @@ class UserService
     {
         return $_SESSION[self::session_auth_key];
     }
+    public static function authUserId(): ?int
+    {
+        return self::isAuth() ? self::authUser()->id : null;
+    }
     public static function logout()
     {
         unset($_SESSION[self::session_auth_key]);

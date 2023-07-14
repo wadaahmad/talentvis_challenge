@@ -4,7 +4,7 @@ use controller\BalanceController;
 use services\UserService;
 
 $controller = new BalanceController;
-$balance = $controller->getBalance();
+$balance = $controller->getBalance(UserService::authUserId());
 $challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
 
  

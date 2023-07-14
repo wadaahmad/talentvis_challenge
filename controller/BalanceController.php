@@ -15,31 +15,33 @@ class BalanceController
         $this->dto = new BalanceDto;
         $this->service = new BalanceService;
     }
-    public function getBalance()
+    public function getBalance($userId = null)
     {
-        return Responder::response(200,$this->service->getLatesBalance());
+        return Responder::response(200, $this->service->getLatesBalance($userId));
     }
-    public function deposit(int $debit)
+    public function deposit(int $debit, $userId = null)
     {
         $this->dto->type = 'Deposit';
         $this->dto->debit = $debit;
+        $this->dto->userId = $userId;
         $save = $this->service->save($this->dto);
         $save->commit();
-        return Responder::response(200,$save->getLatestData());
+        return Responder::response(200, $save->getLatestData($userId));
     }
-    public function withdraw(int $credit)
+    public function withdraw(int $credit, $userId = null)
     {
-        if($this->service->getLatesBalance() < $credit)
-            return Responder::response(400,'Your balance is insufficient'); 
-        
+        if ($this->service->getLatesBalance($userId) < $credit)
+            return Responder::response(400, 'Your balance is insufficient');
+
         $this->dto->type = 'Withdraw';
         $this->dto->credit = $credit;
+        $this->dto->userId = $userId;
         $save = $this->service->save($this->dto);
         $save->commit();
-        return Responder::response(200,$save->getLatestData());
+        return Responder::response(200, $save->getLatestData($userId));
     }
-    public function getHistory()
+    public function getHistory($userId = null)
     {
-        return Responder::response(200,$this->service->get());
+        return Responder::response(200, $this->service->get($userId));
     }
 }
