@@ -67,6 +67,18 @@ class UserService
         if ($exist)
             $_SESSION[self::session_auth_key] = $exist[0];
     }
+    public static function isAuth(): bool
+    {
+        return isset($_SESSION[self::session_auth_key]) && $_SESSION[self::session_auth_key];
+    }
+    public static function authUser(): UserDto
+    {
+        return $_SESSION[self::session_auth_key];
+    }
+    public static function logout()
+    {
+        unset($_SESSION[self::session_auth_key]);
+    }
     public function commit()
     {
         $_SESSION[self::session_key] = $this->storage;

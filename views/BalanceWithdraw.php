@@ -27,9 +27,10 @@ if ($_POST['credit']) {
 <body>
     <div>
         <a href="?challenge=<?php echo $challenge; ?>&case=balance&act=view">
-            <button>
-                << Back</button>
+            <span>
+                << Back</span>
         </a>
+        <hr />
         <div>Withdraw </div>
         <form action="" method="POST">
             <input name="credit" />

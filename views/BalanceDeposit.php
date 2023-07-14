@@ -23,9 +23,10 @@ if ($_POST['debit']) {
 <body>
     <div>
         <a href="?challenge=<?php echo $challenge; ?>&case=balance&act=view">
-            <button>
-                << Back</button>
+            <span>
+                << Back</span>
         </a>
+        <hr />
         <div>Deposit </div>
         <form action="" method="POST">
             <input name="debit" />
