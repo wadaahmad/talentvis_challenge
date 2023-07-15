@@ -13,7 +13,7 @@ $error = Request::get('err');
 if (Request::post('credit')) {
     $execute = $controller->withdraw(Request::post('credit'), UserService::authUserId());
     if ($execute->code == 400) {
-        RouterHelper::redirect("?challenge=$challenge&case=balance&act=withdraw&err=$execute->data");
+        return RouterHelper::redirect("?challenge=$challenge&case=balance&act=withdraw&err=$execute->data");
     }
     RouterHelper::redirect("?challenge=$challenge&case=balance&act=view");
 }

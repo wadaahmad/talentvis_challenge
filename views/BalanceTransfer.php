@@ -17,7 +17,7 @@ $users = $userController->getOtherUser(UserService::authUserId());
 if (Request::post('to') && Request::post('amount')) {
     $execute = $controller->Transfer(Request::post('amount'), UserService::authUserId(), Request::post('to'));
     if ($execute->code == 400) {
-        RouterHelper::redirect("?challenge=$challenge&case=balance&act=transfer&err=$execute->data");
+        return RouterHelper::redirect("?challenge=$challenge&case=balance&act=transfer&err=$execute->data");
     }
     RouterHelper::redirect("?challenge=$challenge&case=balance&act=view");
 }
@@ -42,7 +42,7 @@ if (Request::post('to') && Request::post('amount')) {
             <div style="display: flex; justify-content:space-between;">
                 To
                 <select name="to" required>
-                    <option>Select recipient</option>
+                    <option value="">Select recipient</option>
                     <?php
                     foreach ($users->data as $user) {
                         echo "<option value='$user->id'>$user->name</option>";

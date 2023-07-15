@@ -11,7 +11,7 @@ class UserService
     private $storage;
     public function __construct()
     {
-        if (!$_SESSION[self::session_key])
+        if (!isset($_SESSION[self::session_key]))
             $_SESSION[self::session_key] = array();
         $this->storage = $_SESSION[self::session_key];
 

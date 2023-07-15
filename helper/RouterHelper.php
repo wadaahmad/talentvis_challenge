@@ -6,10 +6,13 @@ class RouterHelper
 {
     public static function redirect($url)
     {
-        echo "
-        <script>
-            window.location.href = '$url';
-        </script>
-        ";
+        header("Location:$url");
+
+        // No need javascript
+        // echo "
+        // <script>
+        //     window.location.href = '$url';
+        // </script>
+        // ";
     }
 }

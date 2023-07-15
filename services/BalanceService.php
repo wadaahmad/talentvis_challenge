@@ -10,7 +10,7 @@ class BalanceService
     private $storage;
     public function __construct()
     {
-        if (!$_SESSION[self::session_key])
+        if (!isset($_SESSION[self::session_key]))
             $_SESSION[self::session_key] = array();
         $this->storage = $_SESSION[self::session_key];
     }
@@ -27,7 +27,7 @@ class BalanceService
     {
         $data = $this->get($userId);
         $sizeData = sizeof($data);
-        return $data[$sizeData - 1];
+        return $sizeData ? $data[$sizeData - 1] : null;
     }
     public function getLatesBalance($userId = null)
     {
@@ -46,7 +46,7 @@ class BalanceService
     public function save(BalanceDto $dto)
     {
         if (!$dto->id)
-            $dto->id =  $this->getLatestData()->id + 1;
+            $dto->id = ($this->getLatestData() ? $this->getLatestData()->id : 0) + 1;
         if (!$dto->datetime)
             $dto->datetime = date("Y-m-d H:i");
         $dto = $this->calculateBalance($dto);
