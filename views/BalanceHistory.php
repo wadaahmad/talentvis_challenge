@@ -1,11 +1,12 @@
 <?php
 
 use controller\BalanceController;
+use helper\Request;
 use services\UserService;
 
 $controller = new BalanceController;
 $balances = $controller->getHistory(UserService::authUserId());
-$challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
+$challenge = Request::get('challenge');
 
 ?>
 

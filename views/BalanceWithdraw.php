@@ -1,16 +1,17 @@
 <?php
 
 use controller\BalanceController;
+use helper\Request;
 use helper\RouterHelper;
 use services\UserService;
 
 $controller = new BalanceController;
 $balance = $controller->getBalance(UserService::authUserId());
-$challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
-$error = isset($_GET['err']) ? $_GET['err'] : '';
+$challenge = Request::get('challenge');
+$error = Request::get('err');
 
-if ($_POST['credit']) {
-    $execute = $controller->withdraw($_POST['credit'], UserService::authUserId());
+if (Request::post('credit')) {
+    $execute = $controller->withdraw(Request::post('credit'), UserService::authUserId());
     if ($execute->code == 400) {
         RouterHelper::redirect("?challenge=$challenge&case=balance&act=withdraw&err=$execute->data");
     }
@@ -34,7 +35,7 @@ if ($_POST['credit']) {
         <hr />
         <div>Withdraw </div>
         <form action="" method="POST">
-            <input name="credit" />
+            <input type="number" name="credit" required/>
             <button type="submit">save</button>
             <div style="color:red;">
                 <?php echo $error; ?>

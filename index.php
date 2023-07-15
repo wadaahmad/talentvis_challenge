@@ -1,13 +1,16 @@
 <?php
+
+use helper\Request;
+
 spl_autoload_register(function ($class_name) {
     include str_replace('\\', '/', $class_name) . '.php';
 });
 
 session_start();
 
-$challenge = isset($_GET['challenge']) ? $_GET['challenge'] : 'index';
-$case = isset($_GET['case']) ? $_GET['case'] : '';
-$act = isset($_GET['act']) ? $_GET['act'] : '';
+$challenge = Request::get('challenge');
+$case =  Request::get('case');
+$act = Request::get('act');
 
 if ($challenge == 1) {
     if ($case == 'balance') {

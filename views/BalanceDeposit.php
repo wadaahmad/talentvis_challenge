@@ -1,15 +1,16 @@
 <?php
 
 use controller\BalanceController;
+use helper\Request;
 use helper\RouterHelper;
 use services\UserService;
 
 $controller = new BalanceController;
 $balance = $controller->getBalance(UserService::authUserId());
-$challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
+$challenge = Request::get('challenge');
 
-if ($_POST['debit']) {
-    $controller->deposit($_POST['debit'], UserService::authUserId());
+if (Request::post('debit')) {
+    $controller->deposit(Request::post('debit'), UserService::authUserId());
     RouterHelper::redirect("?challenge=$challenge&case=balance&act=view");
 }
 
@@ -30,7 +31,7 @@ if ($_POST['debit']) {
         <hr />
         <div>Deposit </div>
         <form action="" method="POST">
-            <input name="debit" />
+            <input type="number" name="debit" required />
             <button type="submit">save</button>
         </form>
     </div>

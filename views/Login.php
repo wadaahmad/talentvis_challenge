@@ -1,18 +1,19 @@
 <?php
 
 use controller\UserController;
+use helper\Request;
 use helper\RouterHelper;
 use services\UserService;
 
 $controller = new UserController;
-$challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
-$error = isset($_GET['err']) ? $_GET['err'] : '';
+$challenge = Request::get('challenge');
+$error = Request::get('err');
 
 // show user for testing purpose
 $users = $controller->get();
 
-if ($_POST['username'] && $_POST['password']) {
-    $execute = $controller->login($_POST['username'], $_POST['password']);
+if (Request::post('username') && Request::post('password')) {
+    $execute = $controller->login(Request::post('username'), Request::post('password'));
     if ($execute->code == 401) {
         RouterHelper::redirect("?challenge=$challenge&case=user&act=login&err=$execute->data");
     };

@@ -8,8 +8,8 @@ use services\UserService;
 
 $controller = new BalanceController;
 $balance = $controller->getBalance(UserService::authUserId());
-$challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
-$error = isset($_GET['err']) ? $_GET['err'] : '';
+$challenge = Request::get('challenge');
+$error = Request::get('err');
 
 $userController = new UserController;
 $users = $userController->getOtherUser(UserService::authUserId());
@@ -52,7 +52,7 @@ if (Request::post('to') && Request::post('amount')) {
             </div>
             <div style="display: flex; justify-content:space-between;">
                 Amount
-                <input name="amount" required />
+                <input type="number" name="amount" required />
             </div>
             <button type="submit">save</button>
             <div style="color:red;">
