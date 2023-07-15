@@ -41,6 +41,8 @@ if ($challenge == 1) {
             include 'views/BalanceDeposit.php';
         else if ($act == 'withdraw')
             include 'views/BalanceWithdraw.php';
+        else if ($act == 'transfer')
+            include 'views/BalanceTransfer.php';
     }
 } else
     include "views/Dashbord.php";

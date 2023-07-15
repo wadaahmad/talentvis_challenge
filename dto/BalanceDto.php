@@ -11,4 +11,5 @@ class BalanceDto
     public $debit;
     public $credit;
     public $balance;
+    public $description;
 }

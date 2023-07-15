@@ -8,6 +8,9 @@ $controller = new UserController;
 $challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
 $error = isset($_GET['err']) ? $_GET['err'] : '';
 
+// show user for testing purpose
+$users = $controller->get();
+
 if ($_POST['username'] && $_POST['password']) {
     $execute = $controller->login($_POST['username'], $_POST['password']);
     if ($execute->code == 401) {
@@ -47,6 +50,17 @@ if (UserService::isAuth())
                         <?php echo $error; ?>
                     </div>
                 </form>
+                <div style="background-color: #c4e9f4; padding:10px;">
+                    <div style="margin-bottom: 10px;">Expose Users For testing purpose</div>
+                    <?php
+                    foreach ($users->data as $user) {
+                        echo "$user->name<br/>
+                        username: $user->username<br/>
+                        password: $user->password<br/>
+                        ";
+                    }
+                    ?>
+                </div>
     </div>
 </body>
 

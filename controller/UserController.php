@@ -16,7 +16,14 @@ class UserController
         $this->dto = new UserDto;
         $this->service = new UserService;
     }
-    
+    public function get()
+    {
+        return Responder::response(200, $this->service->get());
+    }
+    public function getOtherUser($userId)
+    {
+        return Responder::response(200, $this->service->getOtherUser($userId));
+    }
     public function login($username, $password)
     {
         $this->dto->username = $username;

@@ -19,10 +19,17 @@ $challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
                 <th>Debit</th>
                 <th>Credit</th>
                 <th>Balance</th>
+                <?php
+                if ($challenge == 3)
+                    echo "<th>Description</th>";
+                ?>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($balances->data as $balance) {
+                $description = '';
+                if ($challenge == 3)
+                    $description = "<td>$balance->description</td>";
                 echo "
                     <tr>
                         <td>$balance->datetime</td>
@@ -30,6 +37,7 @@ $challenge = isset($_GET['challenge']) ? $_GET['challenge'] : '';
                         <td>$balance->debit</td>
                         <td>$balance->credit</td>
                         <td>$balance->balance</td>
+                        $description
                     </tr>
                     ";
             } ?>

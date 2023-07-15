@@ -41,6 +41,19 @@ class UserService
     {
         return $_SESSION[self::session_key];
     }
+    public function findUser($userId): ?UserDto
+    {
+        $exist = array_values(array_filter($this->get(), function ($data) use ($userId) {
+            return ($data->id == $userId);
+        }));
+        return $exist ?  $exist[0] : null;
+    }
+    public function getOtherUser($userId)
+    {
+        return array_values(array_filter($this->get(), function ($data) use ($userId) {
+            return ($data->id != $userId);
+        }));
+    }
     public function getLatestData(): ?UserDto
     {
         $data = $this->get();
@@ -61,9 +74,9 @@ class UserService
     }
     public function login(UserDto $dto)
     {
-        $exist = array_filter($this->get(), function ($data) use ($dto) {
+        $exist = array_values(array_filter($this->get(), function ($data) use ($dto) {
             return ($data->username == $dto->username && $data->password == $dto->password);
-        });
+        }));
         if ($exist)
             $_SESSION[self::session_auth_key] = $exist[0];
     }
