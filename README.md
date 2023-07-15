@@ -9,6 +9,9 @@ Native PHP with OOP, folder structures :
 5. Responder - for sending response from controller to view/UI
 6. views - User Interface
 
+## Behind The Design
+The rules are create challenge one by one and the next challenges must be continue from the previous challenge,
+so All logic is depend on previous challenge and should not breaking any previous code
 
 
 ## Development Server
